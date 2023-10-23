@@ -1,8 +1,8 @@
 echo "Starting creating resources"
 
 RESOURCE_GROUP_NAME=phuongnv19-test-rg
-STORAGE_ACCOUNT_NAME=phuongnv19-storage
-CONTAINER_NAME=phuongnv19-container
+STORAGE_ACCOUNT_NAME=phuongnv19storage
+CONTAINER_NAME=phuongnv19container
 
 # Create resource group
 az group create --name $RESOURCE_GROUP_NAME --location australiaeast
