@@ -9,7 +9,7 @@ stages:
     - job: TerraformTasks
       displayName: Terraform
       pool:
-        vmImage: 'ubuntu-18.04'
+          name: Default
       steps:
       - task: DownloadSecureFile@1
         name: terraform
@@ -27,7 +27,7 @@ stages:
         displayName: Copy terraform.tfvars
         inputs:
           targetType: 'inline'
-          script: cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform
+          script: cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform/environments/test
 
       # Needed for Terraform VM deployment
       - task: InstallSSHKey@0
@@ -43,7 +43,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
           backendServiceArm: 'udacity-deploy-service-connection'
           backendAzureRmResourceGroupName: 'udacity-phuongnv19-project03-rg'
           backendAzureRmStorageAccountName: '$(StorageAccountName)'
@@ -56,14 +56,14 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'validate'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
           backendServiceArm: 'udacity-deploy-service-connection'
       - task: TerraformTaskV2@2
         displayName: Terraform Plan
         inputs:
           provider: 'azurerm'
           command: 'plan'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
           environmentServiceNameAzureRM: 'udacity-deploy-service-connection'
       - task: TerraformTaskV2@2
         displayName: Terraform Apply
@@ -72,7 +72,7 @@ stages:
           command: 'apply'
           commandOptions: |
             -auto-approve
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
           environmentServiceNameAzureRM: 'udacity-deploy-service-connection'
 
 
@@ -80,7 +80,7 @@ stages:
     jobs:
     - job: Build
       pool:
-         vmImage: 'ubuntu-18.04'
+          name: Default
       steps:
       - task: ArchiveFiles@2
         displayName: Archive FakeRestAPI
@@ -114,7 +114,7 @@ stages:
     jobs:
     - deployment: FakeRestAPI
       pool:
-        vmImage: 'Ubuntu-18.04'
+          name: Default
       environment: 'VM-TEST'
       strategy:
         runOnce:
@@ -196,7 +196,7 @@ stages:
       - job: Test_Jmeter
         displayName: Performance testing
         pool:
-          vmImage: 'ubuntu-18.04'
+          name: Default
         steps:
           - bash: |
               sudo apt-get install openjdk-11-jre-headless -y
@@ -243,7 +243,7 @@ stages:
       - job: Test_Post_man
         displayName: Postman Test
         pool:
-            vmImage: 'ubuntu-18.04'
+          name: Default
         steps: 
           - task: NodeTool@0
             displayName: Install Node v14.X
