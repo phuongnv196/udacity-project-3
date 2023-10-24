@@ -44,7 +44,7 @@ stages:
           provider: 'azurerm'
           command: 'init'
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-          backendServiceArm: 'udacity-deploy-azure-service-connection'
+          backendServiceArm: 'udacity-deploy-service-connection'
           backendAzureRmResourceGroupName: 'udacity-phuongnv19-project03-rg'
           backendAzureRmStorageAccountName: '$(StorageAccountName)'
           backendAzureRmContainerName: 'phuongnv19container'
@@ -57,14 +57,14 @@ stages:
           provider: 'azurerm'
           command: 'validate'
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-          backendServiceArm: 'udacity-deploy-azure-service-connection'
+          backendServiceArm: 'udacity-deploy-service-connection'
       - task: TerraformTaskV2@2
         displayName: Terraform Plan
         inputs:
           provider: 'azurerm'
           command: 'plan'
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-          environmentServiceNameAzureRM: 'udacity-deploy-azure-service-connection'
+          environmentServiceNameAzureRM: 'udacity-deploy-service-connection'
       - task: TerraformTaskV2@2
         displayName: Terraform Apply
         inputs:
@@ -73,7 +73,7 @@ stages:
           commandOptions: |
             -auto-approve
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-          environmentServiceNameAzureRM: 'udacity-deploy-azure-service-connection'
+          environmentServiceNameAzureRM: 'udacity-deploy-service-connection'
 
 
   - stage: Build
@@ -123,7 +123,7 @@ stages:
             - task: AzureWebApp@1
               displayName: 'Deploy Azure Web App'
               inputs:
-                azureSubscription: 'udacity-deploy-azure-service-connection'
+                azureSubscription: 'udacity-deploy-service-connection'
                 appName: 'udacity-phuongnv19-project03-app-AppService'
                 appType: webApp
                 package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
