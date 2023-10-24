@@ -214,16 +214,16 @@ stages:
               ls -la
               ls '/home/vsts/work/1/s'
             displayName: Install JMeter
-          - task: Bash@3
-            displayName: EnduranceTest
-            inputs:
-              targetType: 'inline'
-              script: 'jmeter -n -t automatedtesting/jmeter/EnduranceTest.jmx -Jresdir=automatedtesting/jmeter/endurancepages.csv -l automatedtesting/jmeter/report/enduranceresults.jtl -e -o automatedtesting/jmeter/endurancereport'
-          - task: Bash@3
-            displayName: StressTest
-            inputs:
-              targetType: 'inline'
-              script: 'jmeter -n -t automatedtesting/jmeter/StressTest.jmx -Jresdir=automatedtesting/jmeter/stresspages.csv -l automatedtesting/jmeter/report/stressresults.jtl -e -o automatedtesting/jmeter/stressreport'
+          - bash: |
+              apache-jmeter-5.5/bin/jmeter -n -t automatedtesting/jmeter/StressTest.jmx -l log/jmeter/stress-test-result.csv -e -f -o log/jmeter/stress-test-html-report -j log/jmeter/jmeter-stress-test.log
+              cat log/jmeter/jmeter-stress-test.log
+              ls '/home/vsts/work/1/s'
+              ls '/home/vsts/work/1/s/automatedtesting/jmeter'
+            displayName: Stress Test
+          - bash: |
+              apache-jmeter-5.5/bin/jmeter -n -t automatedtesting/jmeter/EnduranceTest.jmx -l log/jmeter/endurance-test-result.csv -e -f -o log/jmeter/endurance-test-html-report -j log/jmeter/jmeter-endurance-test.log
+              cat log/jmeter/jmeter-endurance-test.log
+            displayName: Endurance Test
           - task: PublishBuildArtifacts@1
             inputs:
               PathtoPublish: 'automatedtesting/jmeter'
