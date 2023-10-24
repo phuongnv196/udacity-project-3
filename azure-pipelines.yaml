@@ -246,9 +246,9 @@ stages:
           name: Azure Pipelines
         steps: 
           - task: NodeTool@0
-            displayName: Install Node v14.X
+            displayName: Install Node v16.X
             inputs:
-              versionSpec: '14.x'
+              versionSpec: '16.x'
           - bash: |
               node -v
               sudo npm install -g newman
