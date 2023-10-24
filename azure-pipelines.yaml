@@ -257,4 +257,4 @@ stages:
             condition: always()
             inputs:
              testResultsFormat: JUnit
-             testResultsFiles: '$(System.DefaultWorkingDirectory)/Results/*.xml
+             testResultsFiles: '$(System.DefaultWorkingDirectory)/Results/*.xml'
