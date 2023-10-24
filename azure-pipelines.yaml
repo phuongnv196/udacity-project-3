@@ -1,7 +1,7 @@
 name: $(Date:yyyyMMdd)$(Rev:.r)
 
 variables:
-  - group: ssh-config
+  - group: az-pipeline-config
 stages:
   - stage: Infrastructure
     displayName: Azure Resources Create with terraform
