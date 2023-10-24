@@ -2,6 +2,9 @@ name: $(Date:yyyyMMdd)$(Rev:.r)
 
 variables:
   - group: az-pipeline-config
+
+pool: Azure Pipelines
+
 stages:
   - stage: Infrastructure
     displayName: Azure Resources Create with terraform
@@ -74,7 +77,6 @@ stages:
             -auto-approve
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
           environmentServiceNameAzureRM: 'udacity-deploy-service-connection'
-
 
   - stage: Build
     jobs:
