@@ -226,14 +226,6 @@ stages:
               archiveType: zip
               archiveFile: '$(System.DefaultWorkingDirectory)/log/jmeter/starter-test-html-report.zip'
               verbose: true
-          - task: ArchiveFiles@2
-            displayName: Publish Endurance Test Results
-            inputs:
-              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/log/jmeter/endurance-test-html-report'
-              includeRootFolder: false
-              archiveType: zip
-              archiveFile: '$(System.DefaultWorkingDirectory)/log/jmeter/endurance-test-html-report.zip'
-              verbose: true
           - task: PublishPipelineArtifact@1
             displayName: Publish JMeter logs
             inputs:
