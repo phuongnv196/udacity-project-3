@@ -214,25 +214,21 @@ stages:
               ls -la
               ls '/home/vsts/work/1/s'
             displayName: Install JMeter
-          - bash: |
-              apache-jmeter-5.5/bin/jmeter -n -t automatedtesting/jmeter/Starter.jmx -l log/jmeter/starter-test-result.csv -e -f -o log/jmeter/starter-test-html-report -j log/jmeter/jmeter-starter-test.log
-              cat log/jmeter/jmeter-stress-test.log
-              ls '/home/vsts/work/1/s'
-              ls '/home/vsts/work/1/s/automatedtesting/jmeter'
-            displayName: JMeter stress test
-          - task: ArchiveFiles@2
-            displayName: Publish Stress Test Results
+          - task: Bash@3
+            displayName: EnduranceTest
             inputs:
-              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/log/jmeter/starter-test-html-report'
-              includeRootFolder: false
-              archiveType: zip
-              archiveFile: '$(System.DefaultWorkingDirectory)/log/jmeter/starter-test-html-report.zip'
-              verbose: true
-          - task: PublishPipelineArtifact@1
-            displayName: Publish JMeter logs
+              targetType: 'inline'
+              script: 'jmeter -n -t automatedtesting/jmeter/EnduranceTestSuite.jmx -Jresdir=automatedtesting/jmeter/endurancepages.csv -l automatedtesting/jmeter/report/enduranceresults.jtl -e -o automatedtesting/jmeter/endurancereport'
+          - task: Bash@3
+            displayName: StressTest
             inputs:
-              targetPath: '$(System.DefaultWorkingDirectory)/log/jmeter'
-              artifact: drop-jmeter   
+              targetType: 'inline'
+              script: 'jmeter -n -t automatedtesting/jmeter/StressTestSuite.jmx -Jresdir=automatedtesting/jmeter/stresspages.csv -l automatedtesting/jmeter/report/stressresults.jtl -e -o automatedtesting/jmeter/stressreport'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: 'automatedtesting/jmeter'
+              ArtifactName: 'jmeter'
+              publishLocation: 'Container'   
 
       - job: Test_Post_man
         displayName: Postman Test
@@ -250,16 +246,15 @@ stages:
               newman -v
             displayName: Install Newman CLI
           - bash: |
-                newman run automatedtesting/postman/StarterAPIs.json --reporters cli,junit --reporter-junit-export log/newman/RegressionTest.xml --suppress-exit-code
+                newman run automatedtesting/postman/StarterAPIs.json --reporters cli,junit --reporter-junit-export Results/RegressionTests.xml --suppress-exit-code
             displayName: Run Regression Test
-          - task: PublishPipelineArtifact@1
-            displayName: Publish Newman logs
+          - task: CmdLine@2
             inputs:
-              targetPath: '$(System.DefaultWorkingDirectory)/log/newman'
-              artifactName: 'drop-newman-logs'
+              script: 'ls'
+              workingDirectory: '$(System.DefaultWorkingDirectory)'
           - task: PublishTestResults@2
             displayName: Publish report postman
             condition: always()
             inputs:
              testResultsFormat: JUnit
-             testResultsFiles: '$(System.DefaultWorkingDirectory)/log/newman/*.xml'
+             testResultsFiles: '$(System.DefaultWorkingDirectory)/Results/*.xml
