@@ -12,7 +12,7 @@ stages:
     - job: TerraformTasks
       displayName: Terraform
       pool:
-          name: Default
+          name: Azure Pipelines
       steps:
       - task: DownloadSecureFile@1
         name: terraform
@@ -82,7 +82,7 @@ stages:
     jobs:
     - job: Build
       pool:
-          name: Default
+          name: Azure Pipelines
       steps:
       - task: ArchiveFiles@2
         displayName: Archive FakeRestAPI
@@ -116,7 +116,7 @@ stages:
     jobs:
     - deployment: FakeRestAPI
       pool:
-          name: Default
+          name: Azure Pipelines
       environment: 'VM-TEST'
       strategy:
         runOnce:
@@ -198,7 +198,7 @@ stages:
       - job: Test_Post_man
         displayName: Postman Test
         pool:
-          name: Default
+          name: Azure Pipelines
         steps: 
           - task: NodeTool@0
             displayName: Install Node v16.X
@@ -226,7 +226,7 @@ stages:
       - job: Test_Jmeter
         displayName: Performance testing
         pool:
-          name: Default
+          name: Azure Pipelines
         steps:
           - bash: |
               sudo apt-get install openjdk-11-jre-headless -y
