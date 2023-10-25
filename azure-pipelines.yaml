@@ -91,14 +91,14 @@ stages:
             sudo apt-get install dotnet-sdk-6.0
             echo "Install .NET done!"
             dotnet --version
-          displayName: Install .NET 6.0
+        displayName: Install .NET 6.0
       - task: InstallDotNet
         displayName: Install .NET 
       - bash: |
             cd $(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web
             dotnet build --configuration release
             echo "Build done"
-          displayName: Install .NET 6.0
+        displayName: Install .NET 6.0
       - task: ArchiveFiles@2
         displayName: Archive FakeRestAPI
         inputs:
