@@ -12,7 +12,7 @@ def timestamp():
 def driver_config():
     print ('Starting the browser...')
     options = ChromeOptions()
-    # options.add_argument("--headless") 
+    options.add_argument("--headless") 
     return webdriver.Chrome(options=options)
 
 # Start the browser and login with standard_user
