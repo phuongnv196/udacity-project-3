@@ -242,7 +242,6 @@ stages:
           - bash: |
               node -v
               sudo npm install -g newman
-              mkdir -p log/newman
               newman -v
             displayName: Install Newman CLI
           - bash: |
