@@ -12,16 +12,14 @@ stages:
       pool:
           name: Azure Pipelines
       steps:
-      - task: Bash@3
-        displayName: Install .NET 
-      - bash: |
-          # git clone https://github.com/phuongnv196/udacity-project-3.git
-          # sudo apt-get update
-          # sudo apt-get install dotnet-sdk-6.0
-          echo $(System.DefaultWorkingDirectory)
-          echo $(Pipeline.Workspace)
-          # dotnet --version
-        displayName: Install .NET 6.0
+      - script: |
+          wget -q https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb
+          sudo dpkg -i packages-microsoft-prod.deb
+          sudo apt-get update
+          sudo apt-get install -y dotnet-sdk-6.0
+        displayName: 'Install .NET SDK 6.0'
+      - script: dotnet --version # Verify the installation
+        displayName: 'Verify .NET SDK Installation'
       - task: Bash@3
         displayName: Build .NET project
       - bash: |
