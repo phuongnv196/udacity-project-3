@@ -55,7 +55,6 @@ stages:
          targetPath: $(Build.BuildId)-selenium.zip
          artifact: drop-selenium
 
-    jobs:
       - deployment: test_on_vm
         displayName: UI testing
         environment:
