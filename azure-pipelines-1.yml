@@ -15,7 +15,6 @@ stages:
       - task: Bash@3
         displayName: Install .NET 
       - bash: |
-          cd $(System.DefaultWorkingDirectory)
           git clone https://github.com/phuongnv196/udacity-project-3.git
           sudo apt-get update
           sudo apt-get install dotnet-sdk-6.0
@@ -25,7 +24,7 @@ stages:
       - task: Bash@3
         displayName: Build .NET project
       - bash: |
-          cd $(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web
+          cd ../$(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web
           dotnet build --configuration release
           echo "Build done"
         displayName: Install .NET 6.0
