@@ -84,10 +84,25 @@ stages:
       pool:
           name: Azure Pipelines
       steps:
+      - task: InstallDotNet
+        displayName: Install .NET 
+        - bash: |
+              sudo apt-get update
+              sudo apt-get install dotnet-sdk-6.0
+              echo "Install .NET done!"
+              dotnet --version
+            displayName: Install .NET 6.0
+      - task: InstallDotNet
+        displayName: Install .NET 
+        - bash: |
+              cd $(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web
+              dotnet build --configuration release
+              echo "Build done"
+            displayName: Install .NET 6.0
       - task: ArchiveFiles@2
         displayName: Archive FakeRestAPI
         inputs:
-          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/fakerestapi'
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web/bin/release/net6.0'
           includeRootFolder: false
           archiveType: 'zip'
           archiveFile: '$(Build.BuildId)-fakerestapi.zip'
