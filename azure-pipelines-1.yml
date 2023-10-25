@@ -19,38 +19,9 @@ stages:
           sudo apt-get install -y dotnet-sdk-6.0
         displayName: 'Install .NET SDK 6.0'
       - script: dotnet --version # Verify the installation
-        displayName: 'Verify .NET SDK Installation'
-      - task: Bash@3
-        displayName: Build .NET project
-      - bash: |
-          # cd ../$(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web
-          # dotnet build --configuration release
+        displayName: 'Build .NET project'
+      - script: |
+          cd ../$(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web
+          dotnet build --configuration release
           echo "Build done"
-        displayName: Install .NET 6.0
-      # - task: ArchiveFiles@2
-      #   displayName: Archive FakeRestAPI
-      #   inputs:
-      #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web/bin/release/net6.0'
-      #     includeRootFolder: false
-      #     archiveType: 'zip'
-      #     archiveFile: '$(Build.BuildId)-fakerestapi.zip'
-      # - task: PublishPipelineArtifact@1
-      #   displayName: Upload package
-      #   inputs:   
-      #     targetPath: $(Build.BuildId)-fakerestapi.zip
-      #     artifact: drop-fakerestapi
-
-      # - task: ArchiveFiles@2
-      #   displayName: Archive Selenium
-      #   inputs:
-      #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
-      #     includeRootFolder: false
-      #     archiveType: 'zip'
-      #     archiveFile: '$(Build.BuildId)-selenium.zip'
-      #     replaceExistingArchive: true
-        
-      # - task: PublishPipelineArtifact@1
-      #   displayName: Upload Selenium
-      #   inputs:
-      #    targetPath: $(Build.BuildId)-selenium.zip
-      #    artifact: drop-selenium
+        displayName: 'Build done'
