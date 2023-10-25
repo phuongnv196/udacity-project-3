@@ -84,7 +84,7 @@ stages:
       pool:
           name: Azure Pipelines
       steps:
-      - task: InstallDotNet
+      - task: InstallDotNet@1
         displayName: Install .NET 
       - bash: |
           sudo apt-get update
@@ -92,8 +92,8 @@ stages:
           echo "Install .NET done!"
           dotnet --version
         displayName: Install .NET 6.0
-      - task: InstallDotNet
-        displayName: Install .NET 
+      - task: BuildNetProject@1
+        displayName: Build .NET project
       - bash: |
           cd $(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web
           dotnet build --configuration release
