@@ -21,7 +21,7 @@ stages:
       - script: dotnet --version # Verify the installation
         displayName: 'Build .NET project'
       - script: |
-          cd ~/work/1/s/fakerestapi/FakeRESTApi.Web/fakerestapi/FakeRESTApi.Web
+          cd ~/work/1/s/fakerestapi/FakeRESTApi.Web
           dotnet build --configuration release
           ls /bin/release/net6.0
           echo "Build done"
