@@ -84,21 +84,20 @@ stages:
       pool:
           name: Azure Pipelines
       steps:
-      - task: Bash@3
-        displayName: Install .NET 
-      - bash: |
+      - script: |
+          wget -q https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb
+          sudo dpkg -i packages-microsoft-prod.deb
           sudo apt-get update
-          sudo apt-get install dotnet-sdk-6.0
-          echo "Install .NET done!"
-          dotnet --version
-        displayName: Install .NET 6.0
-      - task: Bash@3
-        displayName: Build .NET project
-      - bash: |
-          cd $(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web
+          sudo apt-get install -y dotnet-sdk-6.0
+        displayName: 'Install .NET SDK 6.0'
+      - script: dotnet --version 
+        displayName: 'Verify the installation'
+      - script: |
+          cd ~/work/1/s/fakerestapi/FakeRESTApi.Web
           dotnet build --configuration release
+          ls /bin/release/net6.0
           echo "Build done"
-        displayName: Install .NET 6.0
+        displayName: 'Build .NET project'
       - task: ArchiveFiles@2
         displayName: Archive FakeRestAPI
         inputs:
