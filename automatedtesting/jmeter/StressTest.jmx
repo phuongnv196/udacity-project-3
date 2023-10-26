@@ -18,7 +18,7 @@
           <stringProp name="LoopController.loops">1</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">2</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">0</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">20</stringProp>
@@ -94,11 +94,11 @@
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
   &quot;ID&quot;: ${ID},&#xd;
-  &quot;Title&quot;: ${Title},&#xd;
-  &quot;Description&quot;: ${Description},&#xd;
+  &quot;Title&quot;: &quot;{Title}&quot;,&#xd;
+  &quot;Description&quot;: &quot;${Description}&quot;,&#xd;
   &quot;PageCount&quot;: ${PageCount},&#xd;
-  &quot;Excerpt&quot;: ${Excerpt},&#xd;
-  &quot;PublishDate&quot;: ${PublishDate}&#xd;
+  &quot;Excerpt&quot;: &quot;${Excerpt}&quot;,&#xd;
+  &quot;PublishDate&quot;: &quot;${PublishDate}&quot;&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -139,11 +139,11 @@
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
   &quot;ID&quot;: ${ID},&#xd;
-  &quot;Title&quot;: ${Title},&#xd;
-  &quot;Description&quot;: ${Description},&#xd;
+  &quot;Title&quot;: &quot;${Title}&quot;,&#xd;
+  &quot;Description&quot;: &quot;${Description}&quot;,&#xd;
   &quot;PageCount&quot;: ${PageCount},&#xd;
-  &quot;Excerpt&quot;: ${Excerpt},&#xd;
-  &quot;PublishDate&quot;: ${PublishDate}&#xd;
+  &quot;Excerpt&quot;: &quot;${Excerpt}&quot;,&#xd;
+  &quot;PublishDate&quot;: &quot;${PublishDate}&quot;&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
