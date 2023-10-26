@@ -277,6 +277,6 @@ stages:
             displayName: Endurance Test
           - task: PublishBuildArtifacts@1
             inputs:
-              PathtoPublish: 'automatedtesting/jmeter'
+              PathtoPublish: 'log/jmeter'
               ArtifactName: 'jmeter'
               publishLocation: 'Container'  
